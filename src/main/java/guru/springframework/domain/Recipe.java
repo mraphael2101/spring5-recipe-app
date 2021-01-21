@@ -1,8 +1,9 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
-
+// As per the ERD, Recipe class is a parent of several derived classes
 @Entity
 public class Recipe {
 
@@ -14,8 +15,17 @@ public class Recipe {
     private String source, url, directions;
     // private Difficulty difficulty;   // to do
 
+    // Cascade Type ensures that this entity will own the relationship with Ingredient
+    // mappedBy specifies that the set of ingredients will be stored on the child class property -> 'recipe'
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
+
     @Lob // Allows JPA to create a blob (binary large object) in the database
     private Byte[] image;
+
+    // JPA Cascade Types control how state changes are cascaded from parent objects to child objects
+    @OneToOne(cascade = CascadeType.ALL)
+    private Notes notes;
 
     public Long getId() {
         return id;
@@ -24,10 +34,6 @@ public class Recipe {
     public void setId(Long id) {
         this.id = id;
     }
-
-    // JPA Cascade Types control how state changes are cascaded from parent objects to child objects
-    @OneToOne(cascade = CascadeType.ALL)
-    private Notes notes;
 
     public String getDescription() {
         return description;
