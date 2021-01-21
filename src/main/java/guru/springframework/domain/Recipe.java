@@ -13,7 +13,10 @@ public class Recipe {
     private String description;
     private Integer prepTime, cookTime, servings;
     private String source, url, directions;
-    // private Difficulty difficulty;   // to do
+
+    // STRING overrides the default behaviour ORDINAL which is numeric. STRING won't break if you insert new values into ENUM
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
 
     // Cascade Type ensures that this entity will own the relationship with Ingredient
     // mappedBy specifies that the set of ingredients will be stored on the child class property -> 'recipe'
@@ -105,5 +108,21 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
