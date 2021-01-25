@@ -1,6 +1,7 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 // As per the ERD, Recipe class is a parent of several derived classes
@@ -12,7 +13,10 @@ public class Recipe {
     private Long id;
     private String description;
     private Integer prepTime, cookTime, servings;
-    private String source, url, directions;
+    private String source, url;
+
+    @Lob
+    private String directions;
 
     // STRING overrides the default behaviour ORDINAL which is numeric. STRING won't break if you insert new values into ENUM
     @Enumerated(value = EnumType.STRING)
@@ -21,7 +25,7 @@ public class Recipe {
     // Cascade Type ensures that this entity will own the relationship with Ingredient
     // mappedBy specifies that the set of ingredients will be stored on the child class property -> 'recipe'
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob // Allows JPA to create a blob (binary large object) in the database
     private Byte[] image;
@@ -36,7 +40,7 @@ public class Recipe {
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
             )
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Long getId() {
         return id;

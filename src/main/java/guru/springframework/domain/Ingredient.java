@@ -18,6 +18,15 @@ public class Ingredient {
     @ManyToOne // No cascade specified as if we delete an ingredient we don't want to delete the recipe
     private Recipe recipe;  // defining this property creates a relationship
 
+    public Ingredient() {}
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
+
     public Long getId() {
         return id;
     }
@@ -57,4 +66,5 @@ public class Ingredient {
     public void setUom(UnitOfMeasure uom) {
         this.uom = uom;
     }
+
 }
