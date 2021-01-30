@@ -120,6 +120,15 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+        // enforce bi-directional association here so that it can be managed in one place
+        notes.setRecipe(this);
+    }
+
+    public Recipe addIngredient(Ingredient ingredient) {
+        ingredient.setRecipe(this);
+        // enforce bi-directional association here so that it can be managed in one place
+        this.ingredients.add(ingredient);
+        return this;
     }
 
     public Difficulty getDifficulty() {
