@@ -3,19 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Recipe Home</title>
-</head>
-<body>
-<h1>My Recipes</h1>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-    </tr>
-    <tr th:each="recipe : ${recipes}">
-        <td th:text="${recipe.id}">123</td>
-        <td th:text="${recipe.description}">Tasty Goodness</td>
-    </tr>
-</table>
+    <!-- BootstrapCDN delivers cached version of Bootstrap’s compiled CSS and JS to your project
+        from https://getbootstrap.com/docs/4.4/getting-started/download/ -->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container-fluid" style="margin-top: 20px"> <!-- Adds a Margin -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3"> <!-- Create 6 columns and offset by 3 -->
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h1 class="panel-title">My Recipes</h1>
+                </div>
+
+                <div class="panel-body">
+                    <!-- Thymeleaf only displays the table if the list is not empty -->
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+                        <table class="table-hover"> <!-- Makes hover dynamic effect happen -->
+                            <thead class="table table-hover">
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tr th:remove="all">
+                                <td th:text="${recipe.id}">123</td>
+                                <td th:text="${recipe.description}">Tasty Goodness 1</td>
+                            </tr>
+                            <tr th:remove="all">
+                                <td th:text="${recipe.id}">456</td>
+                                <td th:text="${recipe.description}">Tasty Goodness 2</td>
+                            </tr>
+                            <tr th:each="recipe : ${recipes}">
+                                <td th:text="${recipe.id}">789</td>
+                                <td th:text="${recipe.description}">Tasty Goodness 3</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
 </body>
 </html>
